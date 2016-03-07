@@ -1,0 +1,7 @@
+com\test\movierecordsjsf\model\MovieRecords.class
+com\test\movierecordsjsf\controller\MovieRecordsController.class
+com\test\movierecordsjsf\util\FileUtil.class
+com\test\movierecordsjsf\model\MovieRecords_.class
+com\test\movierecordsjsf\util\JsfUtil.class
+com\test\movierecordsjsf\facade\AbstractFacade.class
+com\test\movierecordsjsf\facade\MovieRecordsFacade.class

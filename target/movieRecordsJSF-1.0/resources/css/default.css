@@ -1,0 +1,61 @@
+body {
+    background-color: #ffffff;
+    font-size: 12px;
+    font-family: Verdana, "Verdana CE",  Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+    color: #000000;  
+    margin: 10px;
+}
+
+h1 {
+    font-family: Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+    border-bottom: 1px solid #AFAFAF; 
+    font-size:  16px;
+    font-weight: bold;
+    margin: 0px;
+    padding: 0px;
+    color: #D20005;
+}
+
+.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
+    font-family: Lucida Grande,Lucida Sans,Arial,sans-serif;
+    font-size: 12px;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+    background: #dfeffc url("/movieRecordsJSF-1.0/javax.faces.resource/images/ui-bg_glass_85_dfeffc_1x400.png.jsf?ln=primefaces-redmond") repeat-x scroll 50% 50%;
+    border: 1px solid #c5dbec;
+    color: #2e6e9e;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td {
+    border-style: solid;
+    border-width: 1px;
+    font-size: 12px;
+    overflow: hidden;
+    padding: 4px 10px;
+}
+
+input[type="file"] {
+    display: inline;
+}
+
+/*a:link, a:visited {
+  color: #045491;
+  font-weight : bold;
+  text-decoration: none;
+}*/
+
+/*a:link:hover, a:visited:hover  {
+  color: #045491;
+  font-weight : bold;
+  text-decoration : underline;
+}*/
+
+/*input[type="file"]{
+    background: #dfeffc url("/movieRecordsJSF-1.0/javax.faces.resource/images/ui-bg_glass_85_dfeffc_1x400.png.jsf?ln=primefaces-redmond") repeat-x scroll 50% 50%;
+    border: 1px solid #c5dbec;
+    color: #2e6e9e;
+    font-weight: bold;
+}*/

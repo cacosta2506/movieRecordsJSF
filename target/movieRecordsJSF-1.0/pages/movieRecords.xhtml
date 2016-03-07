@@ -1,0 +1,180 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <meta charset="utf-8"/>
+            <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <title>Movie Records</title>
+            <meta name="description" content=""/>
+
+            <link href="../resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+            <link href="../resources/css/cssLayout.css" rel="stylesheet" type="text/css"/>
+            <link href="../resources/css/default.css" rel="stylesheet" type="text/css"/>
+            <link href="http://vjs.zencdn.net/5.7.1/video-js.css" rel="stylesheet"/>
+
+            <!-- If you'd like to support IE8 -->
+            <script src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+        </h:head>
+
+        <h:body>
+
+            <p:layout fullPage="true">
+
+
+                <p:layoutUnit position="center">
+                    <h:form id="form" enctype="multipart/form-data" acceptcharset="iso-8859-1">           
+                        <p:messages id="msgs" autoUpdate="true" showDetail="false"
+                                    closable="true" /> 
+
+                        <p:dialog header="Upload Poster" widgetVar="dlgPoster" dynamic="true">
+                            <h:panelGrid columns="2">
+                                <p:fileUpload value="#{movieRecordsController.filePoster}" mode="simple" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" invalidFileMessage="File Incorrect"/>
+
+                                <p:commandButton value="Upload"  ajax="false" update=":form" actionListener="#{movieRecordsController.uploadPoster()}"  />
+                            </h:panelGrid>
+                        </p:dialog>
+
+                        <p:dialog header="Upload Movie" widgetVar="dlgMovie" dynamic="true">
+                            <h:panelGrid columns="2">
+                                <p:fileUpload value="#{movieRecordsController.fileMovie}" mode="simple" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" invalidFileMessage="File Incorrect"/>
+
+                                <p:commandButton value="Upload"  ajax="false" update=":form" actionListener="#{movieRecordsController.uploadMovie()}"  />
+                            </h:panelGrid>
+                        </p:dialog>
+
+                        <p:dialog header="Delete Movie" widgetVar="dlgDelete" dynamic="true" closable="false">
+                            <p:outputLabel value="Do you really want to delete this record?"></p:outputLabel>
+                            <h:panelGrid columns="2">
+
+                                <p:commandButton value="Yes" style="margin: 0 10px 0 60px; padding: 0 10px;" ajax="false" update=":form" actionListener="#{movieRecordsController.deleteMovie()}"  />
+                                <p:commandButton value="No" style="margin: 0 10px 0 0; padding: 0 10px;" ajax="false" update=":form" onclick="PF('dlgPoster').hide();"  />
+                            </h:panelGrid>
+                        </p:dialog>
+
+
+
+
+                        <h2 class="sub-header">Movie Records</h2>
+
+
+
+                        
+
+
+                            
+                                <p:panel header="Upload XML" style="margin-bottom: 5px;">
+                                    <h:panelGrid columns="2">
+
+                                        <p:fileUpload value="#{movieRecordsController.file}" mode="simple" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" invalidFileMessage="File Incorrect"/>
+
+                                        <p:commandButton value="Upload" ajax="false" actionListener="#{movieRecordsController.uploadXML()}"  />
+
+                                    </h:panelGrid>
+                                </p:panel>
+                                <h:panelGrid columns="2" cellpadding="10">
+                                    <p:dataTable var="movie" id="movie_id" value="#{movieRecordsController.listMovieRecords}"  style="margin-bottom:20px">
+
+
+                                        <p:column headerText="Poster">
+
+                                            <p:graphicImage width="200" height="290" value="#{movie.urlPoster eq null ? '../resources/images/noposter.jpg' : 'http://localhost/images/'.concat(movie.urlPoster)}" />
+                                            <p:outputPanel rendered="#{movie.urlPoster eq null ? true: false}">
+                                                <p:commandButton value="Upload Poster" oncomplete="PF('dlgPoster').show();" style="margin: 8px 40px " actionListener="#{movieRecordsController.sendMovie(movie)}" process="@this">
+
+                                                </p:commandButton>
+
+
+
+
+                                            </p:outputPanel>
+
+
+                                        </p:column>
+
+                                        <p:column headerText="Title">
+                                            <h:outputText value="#{movie.title}" />
+
+                                        </p:column>
+
+                                        <p:column headerText="Description">
+                                            <h:outputText value="#{movie.description}" />
+                                        </p:column>
+
+                                        <p:column headerText="Staring">
+                                            <h:outputText value="#{movie.staring}" />
+                                        </p:column>
+                                        
+                                         <p:column headerText="Rating" >
+                                             <p:outputPanel rendered="#{movie.rating >  4 ? true: false}">
+                                            <p:graphicImage width="200" height="30" value="../resources/images/rating5.jpg" />
+                                            
+                                             </p:outputPanel>
+                                             
+                                             <p:outputPanel rendered="#{movie.rating eq  4 ? true: false}">
+                                            <p:graphicImage width="200" height="30" value="../resources/images/rating4.jpg" />
+                                            
+                                             </p:outputPanel>
+                                             
+                                             <p:outputPanel rendered="#{movie.rating eq  3 ? true: false}">
+                                            <p:graphicImage width="200" height="30" value="../resources/images/rating3.jpg" />
+                                            
+                                             </p:outputPanel>
+                                             
+                                             <p:outputPanel rendered="#{movie.rating eq 2 ? true: false}">
+                                            <p:graphicImage width="200" height="30" value="../resources/images/rating2.jpg" />
+                                            
+                                             </p:outputPanel>
+                                             
+                                             <p:outputPanel rendered="#{movie.rating eq 1 ? true: false}">
+                                            <p:graphicImage width="200" height="30" value="../resources/images/rating1.jpg" />
+                                            
+                                             </p:outputPanel>
+                                                                                                                                      
+                                        </p:column>
+
+                                        <p:column headerText="Movie">
+                                            <p:outputPanel rendered="#{movie.urlMovie eq null ? true: false}">
+                                                <p:graphicImage width="200" height="290" value="#{movie.urlMovie eq null ? '../resources/images/movie_default.jpg' : '../resources/images/'.concat(movie.urlMovie)}" />
+
+                                                <p:commandButton value="Upload Movie" oncomplete="PF('dlgMovie').show();" style="margin: 8px 45px " actionListener="#{movieRecordsController.sendMovie(movie)}" process="@this"></p:commandButton>
+
+                                            </p:outputPanel>
+                                            <p:outputPanel rendered="#{movie.urlMovie eq null ? false: true}">
+                                                <video src="#{'http://localhost/trailers/'.concat(movie.urlMovie)}" height='200' width='200' controls="auto" >
+                                                </video>
+                                            </p:outputPanel>
+                                        </p:column>
+                                        <p:column headerText="Action" style="width:60px;">
+                                            <div align="center">
+                                                <p:commandButton title="delete"
+                                                                 icon="ui-icon-trash" oncomplete="PF('dlgDelete').show();" 
+                                                                 process="@this" update=":form">
+                                                    <f:setPropertyActionListener
+                                                        target="#{movieRecordsController.movieRecords}"
+                                                        value="#{movie}" />
+                                                </p:commandButton>
+
+                                            </div>
+
+                                        </p:column>
+                                    </p:dataTable>
+
+                                </h:panelGrid>
+                            
+
+                    </h:form>
+                </p:layoutUnit>
+
+            </p:layout>
+
+        </h:body>
+
+    </f:view>
+</html>
+
